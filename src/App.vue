@@ -95,13 +95,10 @@ footer {
   margin-right: 5px;
 }
 
-.badge.Assessment {
- background-color: #0000DD;
-}
-
 .badge.Classroom.Management {
  background-color: #5625DD;
 }
+
 
 .badge.Reading {
  background-color: #1086DD;
@@ -113,6 +110,19 @@ footer {
 
 .badge.History {
  background-color: #2771DC;
+}
+
+
+.badge.Assessment {
+ background-color: #0E7085;
+}
+
+.badge.Math {
+ background-color: #39B120;
+}
+
+.badge.Science {
+ background-color: #128B6F;
 }
 
 .badge.Social.Science {

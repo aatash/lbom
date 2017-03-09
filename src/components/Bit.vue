@@ -149,4 +149,8 @@ h4 {
   margin-top: 10px;
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 </style>

@@ -19,13 +19,20 @@
 
     <h3 class="magic-heading">The Magic</h3>
 
+    <form id="home-search">
+      <div class="form-group">
+        <label for="homeSearchBarInput">Search for Magic</label>
+        <input  v-model="search" type="text" class="form-control" id="homeSearchBarInput" placeholder="Search">
+      </div>
+    </form>
+
     <div class="loading" v-if="!bits.length">
       <img src="../assets/loading.gif">
     </div>
 
     <div class="card-columns">
 
-      <template v-for="(magic, index) in bits">
+      <template v-for="(magic, index) in filteredBits">
           <div class="card">
             <div class="card-block">
               <h4 class="card-title">{{ magic.name }}</h4>
@@ -62,11 +69,26 @@ import main from 'main'
 export default {
   name: 'magic',
   props: ['bitsList'],
-  // data () {
-  //   return {
-  //     msg: 'hi'
-  //   }
-  // },
+  data: function () {
+    return {
+      search: ''
+    }
+  },
+  computed: {
+    filteredBits: function () {
+      return this.bits.filter(function (bit) {
+        var query = this.search.toLowerCase()
+        return (bit.name.toLowerCase().includes(query) |
+          bit.body.purpose.toLowerCase().includes(query) |
+          Object.keys(bit.categories).toString().toLowerCase().includes(query) |
+          (bit.custom_user ? bit.custom_user.name.toLowerCase() : '').includes(query) |
+          ((bit.uid && this.users[bit.uid]) ? this.users[bit.uid].displayName.toLowerCase() : '').includes(query))
+      }.bind(this)).reverse()
+      // }.bind(this)).sort(function (a, b) {
+      //   b.created_at - a.created_at
+      // })
+    }
+  },
   firebase: function () {
     return {
       bits: main.bitsRef,
